@@ -1,7 +1,7 @@
 import socket
 import threading
 import base64
-import os
+import secrets
 from cryptography.hazmat.primitives.asymmetric import rsa, padding
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
@@ -80,7 +80,7 @@ class SecureChat:
 
     def _generate_session_key(self):
         # Generate a random 256-bit (32-byte) session key
-        self.session_key = os.urandom(32)
+        self.session_key = secrets.token_bytes(32)
         print("Session key generated")
 
     def _send_session_key(self):
@@ -115,7 +115,7 @@ class SecureChat:
 
     def _encrypt_message(self, message):
         # Generate a random IV
-        iv = os.urandom(16)
+        iv = secrets.token_bytes(16)
 
         # Create an encryptor
         cipher = Cipher(algorithms.AES(self.session_key), modes.CFB(iv))
