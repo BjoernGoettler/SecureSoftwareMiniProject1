@@ -27,3 +27,21 @@ python secure_chat.py
 ```
 
 Chat!
+
+### Hassles
+This part took quite a while to understand (and actually I'm not sure I fully understand it yet)
+I am not really sure what the public_exponent does, but after fiddling around with it, it works now
+```python
+self.private_key = rsa.generate_private_key(
+            public_exponent=65537,
+            key_size=2048
+        )
+```
+
+I also thought it would be fun to use 1024 bits for the session key, but just as the documentation actually says, 256 bits is the limit 
+```python
+def _generate_session_key(self):
+    # Generate a random 256-bit (32-byte) session key
+    self.session_key = secrets.token_bytes(32)
+    print("Session key generated")
+```
